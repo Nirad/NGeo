@@ -121,6 +121,26 @@ namespace NGeo.Yahoo.GeoPlanet
             }
         }
 
+        private PlacesResponse ChannelTowns(int woeId, string appId, RequestView view, int retry = 0)
+        {
+            try
+            {
+                return Channel.Towns(woeId.ToString(CultureInfo.InvariantCulture), appId, view);
+            }
+            catch (ProtocolException ex)
+            {
+                if (retry < RetryLimit && ex.InnerException is WebException)
+                    return ChannelTowns(woeId, appId, view, ++retry);
+                throw;
+            }
+            catch (SerializationException ex)
+            {
+                if (retry < RetryLimit && ex.Message.StartsWith(XmlDeserializeMessage, StringComparison.Ordinal))
+                    return ChannelTowns(woeId, appId, view, ++retry);
+                throw;
+            }
+        }
+
         public Places Ancestors(int woeId, string appId, RequestView view = RequestView.Short)
         {
             try
@@ -291,6 +311,22 @@ namespace NGeo.Yahoo.GeoPlanet
             try
             {
                 var response = ChannelStates(woeId, appId, view);
+                var results = response.Results;
+                if (results != null)
+                    results.Items = new ReadOnlyCollection<Place>(results.JsonItems.ToPlaces());
+                return results;
+            }
+            catch (EndpointNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        public Places Towns(int woeId, string appId, RequestView view = RequestView.Short)
+        {
+            try
+            {
+                var response = ChannelTowns(woeId, appId, view);
                 var results = response.Results;
                 if (results != null)
                     results.Items = new ReadOnlyCollection<Place>(results.JsonItems.ToPlaces());
