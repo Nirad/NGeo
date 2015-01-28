@@ -8,7 +8,7 @@ namespace NGeo.Yahoo.GeoPlanet
     {
         [OperationContract(Name = "place")]
         [WebGet(
-            UriTemplate = "place/{woeId}?format=json&view={view}&appid={appId}",
+            UriTemplate = "place/{woeId}?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -17,7 +17,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "places")]
         [WebGet(
-            UriTemplate = "places.q({query});count=0?format=json&view={view}&appid={appId}",
+            UriTemplate = "places.q({query});count=0?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -26,16 +26,25 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "parent")]
         [WebGet(
-            UriTemplate = "place/{woeId}/parent?format=json&view={view}&appid={appId}",
+            UriTemplate = "place/{woeId}/parent?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
         )]
         PlaceResponse Parent(string woeId, string appId, RequestView view);
 
+        [OperationContract(Name = "towns")]
+        [WebGet(
+            UriTemplate = "place/{woeId}/children.type(town);count=0?lang=fr-CA&format=json&view={view}&appid={appId}",
+            RequestFormat = WebMessageFormat.Json,
+            ResponseFormat = WebMessageFormat.Json,
+            BodyStyle = WebMessageBodyStyle.Bare
+        )]
+        PlacesResponse Towns(string woeId, string appId, RequestView view);
+
         [OperationContract(Name = "ancestors")]
         [WebGet(
-            UriTemplate = "place/{woeId}/ancestors?format=json&view={view}&count=0&appid={appId}",
+            UriTemplate = "place/{woeId}/ancestors?lang=fr-CA&format=json&view={view}&count=0&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -44,7 +53,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "belongtos")]
         [WebGet(
-            UriTemplate = "place/{woeId}/belongtos?format=json&view={view}&count=0&appid={appId}",
+            UriTemplate = "place/{woeId}/belongtos?lang=fr-CA&format=json&view={view}&count=0&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -53,7 +62,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "placetypes")]
         [WebGet(
-            UriTemplate = "placetypes?format=json&view={view}&count=0&appid={appId}",
+            UriTemplate = "placetypes?lang=fr-CA&format=json&view={view}&count=0&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -62,7 +71,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "continents")]
         [WebGet(
-            UriTemplate = "continents?format=json&view={view}&appid={appId}",
+            UriTemplate = "continents?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -71,7 +80,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "countries")]
         [WebGet(
-            UriTemplate = "countries?format=json&view={view}&appid={appId}",
+            UriTemplate = "countries?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -80,7 +89,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "states")]
         [WebGet(
-            UriTemplate = "states/{country}?format=json&view={view}&appid={appId}",
+            UriTemplate = "states/{country}?lang=fr-CA&format=json&view={view}&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -89,7 +98,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "counties")]
         [WebGet(
-            UriTemplate = "counties/{state}?format=json&view={view}&count=0&appid={appId}",
+            UriTemplate = "counties/{state}?lang=fr-CA&format=json&view={view}&count=0&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
@@ -98,7 +107,7 @@ namespace NGeo.Yahoo.GeoPlanet
 
         [OperationContract(Name = "concordance")]
         [WebGet(
-            UriTemplate = "concordance/{nameSpace}/{id}?format=json&appid={appId}",
+            UriTemplate = "concordance/{nameSpace}/{id}?lang=fr-CA&format=json&appid={appId}",
             RequestFormat = WebMessageFormat.Json,
             ResponseFormat = WebMessageFormat.Json,
             BodyStyle = WebMessageBodyStyle.Bare
